@@ -1,0 +1,27 @@
+#!/bin/bash
+tmpfile=$(mktemp /tmp/iss.XXXXXX)
+tmpfile2=$(mktemp /tmp/iss.XXXXXX)
+tmpfile3=$(mktemp /tmp/iss.XXXXXX)
+tmpfile4=$(mktemp /tmp/iss.XXXXXX)
+tmpfile5=$(mktemp /tmp/iss.XXXXXX)
+starttime=$(date +%s)
+endtime=$(date -d "+6 days 23:59:59" +"%s")
+
+predict -f ISS $starttime $endtime| awk  '$5 >=25 {print }' > $tmpfile
+
+
+awk '$1-100>prev {print prev, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve "\n" $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}{prev=$1}{two=$2}{three=$3}{four=$4}{five=$5}{six=$6}{seven=$7}{eight=$8}{nine=$9}{ten=$10}{eleven=$11}{twelve=$12}' $tmpfile > $tmpfile2
+
+awk 'END{print}' $tmpfile >> $tmpfile2
+
+
+awk '$1-prev<1000 && $1-prev!=0 {print 1+(($1-prev)/60),prev, two, three, four, five, six, seven, eight, nine, ten, eleven, $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11}{prev=$1}{two=$2}{three=$3}{four=$4}{five=$5}{six=$6}{seven=$7}{eight=$8}{nine=$9}{ten=$10}{eleven=$11}' $tmpfile2 > $tmpfile3
+
+awk '{ printf " %d %3.0F\n", $2, $1}'  $tmpfile3 > $tmpfile4
+
+awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
+
+cat $tmpfile5
+
+cp $tmpfile3 /tmp/status.txt
+rm -f $tmpfile $tmpfile2 $tmpfile3 $tmpfile4 $tmpfile5
