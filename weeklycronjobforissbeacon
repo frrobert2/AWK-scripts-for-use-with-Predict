@@ -22,14 +22,17 @@ awk 'END{print}' $tmpfile >> $tmpfile2
 #add pass time for each pass time is from minimum elevation to minimum elevation and puts each pass on one line
 awk '$1-prev<1000 && $1-prev!=0 {print 1+(($1-prev)/60),prev, two, three, four, five, six, seven, eight, nine, ten, eleven, $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11}{prev=$1}{two=$2}{three=$3}{four=$4}{five=$5}{six=$6}{seven=$7}{eight=$8}{nine=$9}{ten=$10}{eleven=$11}' $tmpfile2 > $tmpfile3
 
-# converts information for issbeacon script  you will want to edit between this line and 
-awk '{ printf " %d %3.0F\n", $2, $1}'  $tmpfile3 > $tmpfile4
+# converts information for issbeacon script or the changeradiosettings script you will want to edit between this line and 
 
-awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
+awk '{ printf " %d %3.0F\n", $2, $1}'  $tmpfile3 > $tmpfile4
+# line for issbeaconscript make sure to change path and uncomment
+#awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
+# line for changeradiosettings script make sure to change path    and uncomment
+#awk '{ print "echo /frrobert/bin/changeradiosettings "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
 
 bash $tmpfile5
 #this line for your own uses
-
+#copies information pass information to a text file you can view.
 cp $tmpfile3 /tmp/${starttime}coordinates.txt
 
 rm -f $tmpfile $tmpfile2 $tmpfile3 $tmpfile4 $tmpfile5
