@@ -23,5 +23,6 @@ awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) 
 
 cat $tmpfile5
 
-cp $tmpfile3 /tmp/status.txt
+cp $tmpfile3 /tmp/${starttime}coordinates.txt
+
 rm -f $tmpfile $tmpfile2 $tmpfile3 $tmpfile4 $tmpfile5
