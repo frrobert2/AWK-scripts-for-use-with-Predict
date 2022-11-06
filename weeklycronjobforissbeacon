@@ -1,3 +1,5 @@
+#Best way to use script is a weekly cron job to setup at jobs related to aprs 
+
 #!/bin/bash
 tmpfile=$(mktemp /tmp/iss.XXXXXX)
 tmpfile2=$(mktemp /tmp/iss.XXXXXX)
@@ -29,8 +31,8 @@ awk '{ printf " %d %3.0F\n", $2, $1}'  $tmpfile3 > $tmpfile4
 #awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
 # line for changeradiosettings script make sure to change path    and uncomment
 #awk '{ print "echo /frrobert/bin/changeradiosettings "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
-
-bash $tmpfile5
+#uncomment line below to have the script do anything useful
+#bash $tmpfile5
 #this line for your own uses
 #copies information pass information to a text file you can view.
 cp $tmpfile3 /tmp/${starttime}coordinates.txt
