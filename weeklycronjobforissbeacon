@@ -28,9 +28,9 @@ awk '$1-prev<1000 && $1-prev!=0 {print 1+(($1-prev)/60),prev, two, three, four, 
 
 awk '{ printf " %d %3.0F\n", $2, $1}'  $tmpfile3 > $tmpfile4
 # line for issbeaconscript make sure to change path and uncomment
-#awk '{ print "echo /frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
+#awk '{ print "echo /home/frrobert/bin/issbeacon "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
 # line for changeradiosettings script make sure to change path    and uncomment
-#awk '{ print "echo /frrobert/bin/changeradiosettings "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
+#awk '{ print "echo /home/frrobert/bin/changeradiosettings "$2 " | at " strftime("%H:%M %D",$1) }' $tmpfile4 > $tmpfile5
 #uncomment line below to have the script do anything useful
 #bash $tmpfile5
 #this line for your own uses
